@@ -6,7 +6,7 @@ function start(){
     const buttons = document.querySelectorAll("button");
 
     let expression = [];
-    let start = true;
+    let partialSolution;
 
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -14,110 +14,192 @@ function start(){
                 clear();
                 start = false;
             }
-            switch(button.value){
-                case 'AC':
-                    clear();
-                    break;
-                case 'C':
-                    expression.pop();
-                    break;
-                case '%':
-                    expression.push(parseFloat(display.innerText));
-                    expression.push('%');
-                    history.innerText += display.innerText + " % ";
-                    display.innerText = '';
-                    break;
-                case '+':
-                    expression.push(parseFloat(display.innerText));
-                    expression.push('+');
-                    history.innerText += display.innerText + " + ";
-                    display.innerText = '';
-                    break;
-                case '-':
-                    expression.push(parseFloat(display.innerText));
-                    expression.push('-');
-                    history.innerText += display.innerText + " - ";
-                    display.innerText = '';
-                    break;
-                case '*':
-                    expression.push(parseFloat(display.innerText));
-                    expression.push('*');
-                    history.innerText += display.innerText + " * ";
-                    display.innerText = '';
-                    break;
-                case '/':
-                    expression.push(parseFloat(display.innerText));
-                    expression.push('/');
-                    history.innerText += display.innerText + " / ";
-                    display.innerText = '';
-                    break;
-                case '.':
-                    display.innerText += button.value;
-                    break;
-                case '=':
-                    expression.push(parseFloat(display.innerText));
-                    history.innerText += display.innerText + " = ";
-                    start = true;
-                    display.innerText = calculate();                    
-                    break;
-                default:
-                    display.innerText += button.value;
-                    break;
+            try{
+                calculator(button.value);
+            }catch(e){
+                alert(e);
+                console.log(e);
             }
         })
     });
-    function calculate(){
-        console.log(expression);
-        if(expression.length<3){
-            alert("INVALID EXPRESSION");
-            return " ";
-        }
-        let entry1,
-            entry2,
-            result = expression.shift();
 
-        do{
-            entry1 = expression.shift();
+    document.onkeydown = function (e) {
+        if(start){
+            clear();
+            start = false;
+        }
+        try{
+            calculator(e.key);
+        }catch(error){
+            alert(error);
+            console.log(error);
+        }
+    }
+
+    function calculate(){
+        if(expression.length<3){
+            console.log("here");
+            alert("INVALID EXPRESSION");
+            return "";
+        }
+        let result = expression.shift(),
+            entry1 = expression.shift(),
             entry2 = expression.shift();
 
-            console.log(entry1);
-            console.log(entry2);
-
-            if(isOperator(entry1) && !isNaN(entry2)){
-                result = operate(result, entry1, entry2);
-            }else{
-                alert("INVALID EXPRESSION");
-                clear();
-                return " ";
-            }
-        }
-        while(expression.length>0)
+        result = operate(result, entry1, entry2);   
 
         if(result === Infinity){
             alert("CANNOT DIVIDE BY ZERO!")
-            clear();
-            result = " ";
+            return "";
         }
         return result;
     }
+    
+    function getHistory(){
+        let result = "";
+        expression.forEach((entry)=>{
+            result += entry+' ';
+        });
+        return result;
+    }
+
     function operate (factorA, operator, factorB){
+        let result = 0;
         switch(operator){
             case '+':
-                return factorA + factorB;
+                result = factorA + factorB;
+                break;
             case '-':
-                return factorA - factorB;
+                result = factorA - factorB;
+                break;
             case '*':
-                return factorA * factorB;
+                result = factorA * factorB;
+                break;
             case "/":
-                return factorA / factorB;
+                result = factorA / factorB;
+                break;
             case "%":
-                return factorA % factorB;
+                result = factorA % factorB;
+                break;
             default:
                 alert("ERROR");
                 break;
         }
+        if(result !== Math.floor(result)){
+            result = result.toFixed(2);
+        }
+        return result;
     }
-    const clear = () => {display.innerText = " "; history.innerText = " "; expression = [];}
-    const isOperator = (entry) => { return (entry === "%" || entry === "+" || entry === "-" || entry === "/" || entry === "*")}
-}
 
+    const clear = () => {display.innerText = " "; history.innerText = " "; expression = [];}
+    const enableDotButton = () => {document.getElementById("dot").disabled = false;}
+    const disableDotButton = () => {document.getElementById("dot").disabled = true;}
+    const checkValidExpression = () =>{
+        if(display.innerText.length===0){
+            console.log("here");
+            throw "INVALID EXPRESSION";
+        }
+    };
+    
+    const calculatePartialSolution = () =>{
+        expression.push(parseFloat(display.innerText));
+        if(expression.length===3){
+            partialSolution = operate(expression[0],expression[1],expression[2]); 
+            if(partialSolution === Infinity){
+                expression.pop();
+                console.log("here");
+                throw("CANNOT DIVIDE BY ZERO!");
+            }else{
+                expression = [];
+                expression.push(partialSolution);
+            }
+        }
+    }
+    function calculator(value){
+        switch(value){
+            case 'AC':
+            case 'Delete':
+                clear();
+                break;
+            case 'C':
+            case 'Backspace':
+                display.innerText = display.innerText.slice(0,display.innerText.length-1);
+                break;
+            
+            case '%':
+            case ']':
+                checkValidExpression();
+                calculatePartialSolution();
+                expression.push('%');
+                history.innerText = getHistory();
+                display.innerText = '';
+                enableDotButton();
+                break;
+            case '+':
+                checkValidExpression();
+                calculatePartialSolution();
+                expression.push('+');
+                history.innerText = getHistory();
+                display.innerText = '';
+                enableDotButton();                
+                break;
+            case '-':
+                checkValidExpression();
+                calculatePartialSolution();
+                expression.push('-');
+                history.innerText = getHistory();
+                display.innerText = '';
+                enableDotButton();
+                break;
+            case '*':
+                checkValidExpression();
+                calculatePartialSolution();
+                expression.push('*');
+                history.innerText = getHistory();
+                display.innerText = '';
+                enableDotButton(); 
+                break;
+            case '/':
+                checkValidExpression();
+                calculatePartialSolution();
+                expression.push('/');
+                history.innerText = getHistory();
+                display.innerText = '';
+                enableDotButton(); 
+                break;
+            case ',':
+            case '.':
+                checkValidExpression();
+                disableDotButton();
+                display.innerText += '.';
+                break;
+            case 'Enter':
+            case '=':
+                checkValidExpression();
+                expression.push(parseFloat(display.innerText));
+                display.innerText = calculate();
+                if(display.innerText.length>0){
+                    history.innerText = getHistory() + " = ";
+                }else{
+                    history.innerText =  "";
+                }
+                start = true;
+                expression = [display.innerText];
+                break;
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
+                display.innerText += value;
+                break;
+            default:
+                break;
+        }
+    }
+}

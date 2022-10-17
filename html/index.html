@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" type="image/x-icon" href="../css/imgs/calculator-icon.ico">
     <script src="../scripts/index.js"></script>
     <title>Calculator</title>
 </head>
@@ -14,12 +15,14 @@
     </header>
     <main>
         <div id="screen-div">
-            <span id="history"></span>
-            <span id="main-display"></span>
+            <div id="internal-screen-div">
+                <span id="history"></span>
+                <span id="main-display"></span>
+            </div>
         </div>
-        <div class="buttons-div" id="buttons-set-1">
-            <button class="especial" value="AC">AC</button>
-            <button class="especial" value="C">C</button>
+        <div class="buttons-div">
+            <button class="special" value="AC">AC</button>
+            <button class="special" value="C">C</button>
             <button class="special" value="%">%</button>
             <button class="operator" value="/">/</button>
             <button class="number" value="7">7</button>
@@ -35,12 +38,11 @@
             <button class="number" value="3">3</button>
             <button class="operator" value="+">+</button>
             <button class="number" value="0" id="zero-button">0</button>
-            <button class="number" value=".">.</button>
+            <button class="number" value="." id="dot">.</button>
             <button class="operator" value="=">=</button>
         </div>
     </main>
     <footer>
-        
     </footer>
 </body>
 </html>
