@@ -1,4 +1,94 @@
+@font-face {
+    font-family: 'Digital-7';
+    src: url('../css/fonts/digital-7.ttf')
+}
 * {
     margin: 0%;
     padding: 0%;
 }
+body{
+    margin: 2em auto 2em auto;
+    background-color: lightgray;
+    padding: 4em 6em 0em 6em;
+    width: 45em;
+    height:50em;
+    font-family:'Digital-7', 'Courier';
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+h1{
+    text-align: center;
+    font-weight: bold;
+    font-size: 72px;
+}
+
+main {
+    width:400px;
+    display:block;
+    background-color: darkslategray;
+    align-items: center;
+    border-radius: 10px 10px 10px 10px;
+    border-style: solid;
+    border-color: rgb(24, 41, 41);
+}
+.buttons-div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width:100%;
+    background-color: darkslategray;
+    padding: 10px 0px 15px 0px;
+    border-radius: 0px 0px 5px 5px;
+}
+button{
+    width:90px;
+    height: 90px;
+    border-style: solid;
+    border-color: rgb(14, 24, 24);
+    font-size: larger;
+    border-radius: 5px 5px 5px 5px;
+}
+button:hover {
+    cursor: pointer;
+}
+#zero-button{
+    width: 180px;
+}
+#screen-div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border-style: solid;
+    border-width: 20px;
+    border-color: darkslategray;
+    border-radius: 10px 10px 0px 0px;
+    margin-bottom:20px;
+    padding: 10px;
+    min-height: 80x;
+    background-color:rgb(129, 150, 94);
+    color:rgb(46, 58, 25);
+    text-align: end;
+    min-height: 80px;
+}
+#main-display {
+    font-weight: lighter;
+    font-size: 70px;
+    padding: 10px;
+    height: 70px;
+}
+#history {
+    min-height: 20px;
+    font-size: 24px;
+}
+.special {
+    background-color: cornflowerblue;
+}
+.operator {
+    background-color: orange;
+}
+.number {
+    background-color: cadetblue;
+}
+
