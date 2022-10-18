@@ -35,7 +35,7 @@ main {
     align-items: center;
     border-radius: 10px 10px 10px 10px;
     border-style: solid;
-    border-color: rgb(24, 41, 41);
+    border-color: rgb(39, 66, 66);
 }
 .buttons-div{
     display: flex;
@@ -49,6 +49,7 @@ main {
 }
 button{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    position:relative;
     width: 90px;
     height: 90px;
     border-style: solid;
@@ -56,11 +57,18 @@ button{
     font-size: 32px;
     border-radius: 5px 5px 5px 5px;
     margin: 1px;
-    box-shadow: 1px 4px 2px 2px rgb(19, 32, 32);
+    box-shadow: 1px 1px 2px 2px rgb(19, 32, 32);
     font-weight: bold;
 }
 button:hover {
     cursor: pointer;
+}
+button:active {
+    bottom:1px;
+}
+button:disabled {
+    background-color: rgb(110, 184, 187);
+    opacity: 0.5;
 }
 #zero-button{
     width: 180px;
@@ -107,6 +115,10 @@ button:hover {
     border-right-color: rgb(57, 84, 131);
     color:rgb(29, 44, 70);
 }
+
+.special:active {
+    background-color:rgb(63, 93, 150);
+}
 .operator {
     color: rgb(70, 56, 29);
     background-color: orange;
@@ -114,6 +126,10 @@ button:hover {
     border-top-color: rgb(70, 56, 29);
     border-left-color: rgb(117, 95, 50);
     border-right-color: rgb(117, 95, 50);
+    font-size: 65px;
+}
+.operator:active {
+    background-color:#F78900;
 }
 .number {
     color: rgb(35, 57, 58);
@@ -122,4 +138,7 @@ button:hover {
     border-top-color: rgb(35, 57, 58);
     border-left-color: rgb(54, 87, 88);
     border-right-color: rgb(54, 87, 88);
+}
+.number:active{
+    background-color:rgb(68, 112, 114);
 }

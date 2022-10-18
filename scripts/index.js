@@ -1,6 +1,4 @@
-document.addEventListener("DOMContentLoaded", ()=>{start();});
-
-function start(){
+document.addEventListener("DOMContentLoaded", ()=>{
     const display = document.getElementById("main-display");
     const history = document.getElementById("history");
     const buttons = document.querySelectorAll("button");
@@ -20,6 +18,7 @@ function start(){
                 alert(e);
                 console.log(e);
             }
+            
         })
     });
 
@@ -76,6 +75,7 @@ function start(){
     const clear = () => {display.innerText = ""; history.innerText = ""; expression = [];enableDotButton();}
     const enableDotButton = () => {document.getElementById("dot").disabled = false;}
     const disableDotButton = () => {document.getElementById("dot").disabled = true;}
+    const prepareForNextEntry = () => {history.innerText = getHistory();display.innerText = '';};
     const checkValidExpression = () =>{
         if(display.innerText.length===0){
             console.log("Display length is zero.");
@@ -94,6 +94,7 @@ function start(){
                 console.log("Partial solution was Infinity");
                 throw "CANNOT DIVIDE BY ZERO!";
             }
+
             expression = [];
             expression.push(partialSolution);
             
@@ -108,6 +109,9 @@ function start(){
                 break;
             case 'C':
             case 'Backspace':
+                if(display.innerText.charAt(display.innerText.length-1)==='.'){
+                    enableDotButton();
+                }
                 display.innerText = display.innerText.slice(0,display.innerText.length-1);
                 break;
             case '%':
@@ -116,8 +120,7 @@ function start(){
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
                 expression.push('%');
-                history.innerText = getHistory();
-                display.innerText = '';
+                prepareForNextEntry();
                 enableDotButton();
                 break;
             case '+':
@@ -125,8 +128,7 @@ function start(){
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
                 expression.push('+');
-                history.innerText = getHistory();
-                display.innerText = '';
+                prepareForNextEntry();
                 enableDotButton();                
                 break;
             case '-':
@@ -134,8 +136,7 @@ function start(){
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
                 expression.push('-');
-                history.innerText = getHistory();
-                display.innerText = '';
+                prepareForNextEntry();
                 enableDotButton();
                 break;
             case '*':
@@ -143,8 +144,7 @@ function start(){
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
                 expression.push('*');
-                history.innerText = getHistory();
-                display.innerText = '';
+                prepareForNextEntry();
                 enableDotButton(); 
                 break;
             case '/':
@@ -152,8 +152,7 @@ function start(){
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
                 expression.push('/');
-                history.innerText = getHistory();
-                display.innerText = '';
+                prepareForNextEntry();
                 enableDotButton(); 
                 break;
             case ',':
@@ -195,4 +194,4 @@ function start(){
                 break;
         }
     }
-}
+});
