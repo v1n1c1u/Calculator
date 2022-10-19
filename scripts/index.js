@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             clear();
             start = false;
         }
-        console.log(e.key);
+        console.log(`Key pressed: ${e.key}`);
         try{
             calculator(e.key);
         }catch(error){
@@ -163,6 +163,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 break;
             case 'Enter':
             case '=':
+                if(expression.length===0 && display.innerText.length > 0){
+                    history.innerText = display.innerText + " = ";
+                    start = true;
+                    break;
+                }
                 checkValidExpression();
                 expression.push(parseFloat(display.innerText));
                 history.innerText = getHistory() + " = ";
