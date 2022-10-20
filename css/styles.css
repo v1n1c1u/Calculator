@@ -10,9 +10,9 @@ header {
     margin-bottom: 80px;
 }
 body{
-    margin: 1em auto 2em auto;
+    margin: auto auto 2em auto;
     background-color: lightgray;
-    padding: 4em 6em 0em 6em;
+    padding: 1em 6em 1em 6em;
     width: 45em;
     height: 50em;
     font-family:'Digital-7', 'Courier';
@@ -26,6 +26,7 @@ h1{
     font-weight: bold;
     font-size: 72px;
     color: darkslategray;
+    height: fit-content;
 }
 
 main {
@@ -142,3 +143,52 @@ button:disabled {
 .number:active{
     background-color:rgb(68, 112, 114);
 }
+
+footer{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: lighter;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 0%;
+    margin-top: 1vw;
+    color:darkslategray;
+    height: fit-content;
+}
+footer a {
+    color:inherit;
+}
+footer ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin:10px;
+    font-size: 32px;
+}
+i:hover {
+    cursor: pointer;
+    color: rgb(69, 114, 114);
+}
+@media screen and (max-width: 914px) {
+    body {
+        margin: auto;
+        padding: 1em 1vw 1vw 1vw;
+        width: fit-content;
+        min-width: 420px;
+        height: fit-content;
+    }
+    .buttons-div {
+        padding-top: 5px;
+        margin-top: 5px;
+    }
+    header {
+        padding-top:0%;
+        min-height: fit-content;
+    }
+    footer i {
+        font-size: 32px;
+    }
+    footer ul {
+        margin: 0%;
+        margin-top:10px;
+    }
+ }

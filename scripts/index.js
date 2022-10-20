@@ -87,11 +87,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
         let partialSolution;
         if(expression.length === 3){
             partialSolution = parseFloat(operate(expression[0],expression[1],expression[2]));
-            console.log("Expression: ["+expression+"]");
-            console.log("Partial solution: "+partialSolution);
-            if(Math.abs(partialSolution) === Infinity){
+            console.log(`Expression: ${expression}]`);
+            console.log(`Partial solution: ${partialSolution}`);
+            if(Math.abs(partialSolution) === Infinity || partialSolution !== partialSolution){
                 expression.pop();
-                console.log("Partial solution was Infinity");
+                console.log(`Partial solution was ${partialSolution}`);
                 throw "CANNOT DIVIDE BY ZERO!";
             }
 
