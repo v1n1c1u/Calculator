@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const display = document.getElementById("main-display");
     const history = document.getElementById("history");
     const buttons = document.querySelectorAll("button");
+    const dotButton = document.getElementById("dot");
 
     let expression = [];
     let start = true;
@@ -73,8 +74,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     }
 
     const clear = () => {display.innerText = ""; history.innerText = ""; expression = [];enableDotButton();}
-    const enableDotButton = () => {document.getElementById("dot").disabled = false;}
-    const disableDotButton = () => {document.getElementById("dot").disabled = true;}
+    const enableDotButton = () => {dotButton.disabled = false;}
+    const disableDotButton = () => {dotButton.disabled = true;}
     const prepareForNextEntry = () => {history.innerText = getHistory();display.innerText = '';};
     const checkValidExpression = () =>{
         if(display.innerText.length===0){
@@ -87,14 +88,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
         let partialSolution;
         if(expression.length === 3){
             partialSolution = parseFloat(operate(expression[0],expression[1],expression[2]));
-            console.log(`Expression: ${expression}]`);
+            console.log(`Expression: [${expression}]`);
             console.log(`Partial solution: ${partialSolution}`);
             if(Math.abs(partialSolution) === Infinity || partialSolution !== partialSolution){
                 expression.pop();
                 console.log(`Partial solution was ${partialSolution}`);
                 throw "CANNOT DIVIDE BY ZERO!";
             }
-
             expression = [];
             expression.push(partialSolution);
             
@@ -102,20 +102,17 @@ document.addEventListener("DOMContentLoaded", ()=>{
         return partialSolution;
     }
     function calculator(value){
-        switch(value){
-            case 'AC':
-            case 'Delete':
+        switch(typeOfEntry(value)){
+            case "DELETE":
                 clear();
                 break;
-            case 'C':
-            case 'Backspace':
+            case "BACKSPACE":
                 if(display.innerText.charAt(display.innerText.length-1)==='.'){
                     enableDotButton();
                 }
                 display.innerText = display.innerText.slice(0,display.innerText.length-1);
                 break;
-            case '%':
-            case ']':
+            case "MOD":
                 checkValidExpression();
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
@@ -123,7 +120,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 prepareForNextEntry();
                 enableDotButton();
                 break;
-            case '+':
+            case "PLUS":
                 checkValidExpression();
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
@@ -131,7 +128,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 prepareForNextEntry();
                 enableDotButton();                
                 break;
-            case '-':
+            case "SUBTRACT":
                 checkValidExpression();
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
@@ -139,7 +136,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 prepareForNextEntry();
                 enableDotButton();
                 break;
-            case '*':
+            case "MULTIPLY":
                 checkValidExpression();
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
@@ -147,7 +144,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 prepareForNextEntry();
                 enableDotButton(); 
                 break;
-            case '/':
+            case "DIVIDE":
                 checkValidExpression();
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
@@ -155,14 +152,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 prepareForNextEntry();
                 enableDotButton(); 
                 break;
-            case ',':
-            case '.':
-                checkValidExpression();
-                disableDotButton();
-                display.innerText += '.';
+            case "DOT":
+                if(!dotButton.disabled){
+                    checkValidExpression();
+                    display.innerText += '.';
+                    disableDotButton();
+                }
                 break;
-            case 'Enter':
-            case '=':
+            case "EQUALS":
                 if(expression.length===0 && display.innerText.length > 0){
                     history.innerText = display.innerText + " = ";
                     start = true;
@@ -180,6 +177,41 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 }
                 start = true;
                 break;
+            case "NUMBER":
+                if(display.innerText === '0'){
+                    display.innerText = '';
+                }
+                display.innerText += value;
+                break;
+            default:
+                break;
+        }
+    }
+    const typeOfEntry = (value)=>{
+        switch(value){
+            case 'AC':
+            case 'Delete':
+                return "DELETE";
+            case 'C':
+            case 'Backspace':
+                return "BACKSPACE";
+            case '%':
+            case ']':
+                return "MOD";
+            case '+':
+                return "PLUS";
+            case '-':
+                return "SUBTRACT";
+            case '*':
+                return "MULTIPLY";
+            case '/':
+                return "DIVIDE";
+            case ',':
+            case '.':
+                return "DOT";
+            case 'Enter':
+            case '=':
+                return "EQUALS";
             case '0':
             case '1':
             case '2':
@@ -190,13 +222,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
             case '7':
             case '8':
             case '9':
-                if(display.innerText === '0'){
-                    display.innerText = '';
-                }
-                display.innerText += value;
-                break;
+                return "NUMBER";
             default:
-                break;
+                return "INVALID";
         }
     }
 });
