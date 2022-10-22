@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 break;
         }
         if(result !== Math.floor(result)){
-            result = parseFloat(result).toFixed(2);
+            result = parseFloat(result).toFixed(4);
         }
         return result;
     }
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const disableDotButton = () => {dotButton.disabled = true;}
     const prepareForNextEntry = () => {history.innerText = getHistory();display.innerText = '';};
     const checkValidExpression = () =>{
-        if(display.innerText.length===0){
+        if(display.innerText.length=== 0){
             console.log("Display length is zero.");
             throw "INVALID EXPRESSION";
         }
@@ -110,48 +110,23 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 if(display.innerText.charAt(display.innerText.length-1)==='.'){
                     enableDotButton();
                 }
-                display.innerText = display.innerText.slice(0,display.innerText.length-1);
+                if(display.innerText === '' && isOperator(expression[expression.length-1])){
+                    display.innerText = expression[0];
+                    expression = [];
+                    history.innerText = '';
+                }else{
+                    display.innerText = display.innerText.slice(0,display.innerText.length-1);
+                }
                 break;
-            case "MOD":
+            case "OPERATOR":
                 checkValidExpression();
                 expression.push(parseFloat(display.innerText));
                 calculatePartialSolution();
-                expression.push('%');
+                expression.push(value);
                 prepareForNextEntry();
                 enableDotButton();
                 break;
-            case "PLUS":
-                checkValidExpression();
-                expression.push(parseFloat(display.innerText));
-                calculatePartialSolution();
-                expression.push('+');
-                prepareForNextEntry();
-                enableDotButton();                
-                break;
-            case "SUBTRACT":
-                checkValidExpression();
-                expression.push(parseFloat(display.innerText));
-                calculatePartialSolution();
-                expression.push('-');
-                prepareForNextEntry();
-                enableDotButton();
-                break;
-            case "MULTIPLY":
-                checkValidExpression();
-                expression.push(parseFloat(display.innerText));
-                calculatePartialSolution();
-                expression.push('*');
-                prepareForNextEntry();
-                enableDotButton(); 
-                break;
-            case "DIVIDE":
-                checkValidExpression();
-                expression.push(parseFloat(display.innerText));
-                calculatePartialSolution();
-                expression.push('/');
-                prepareForNextEntry();
-                enableDotButton(); 
-                break;
+
             case "DOT":
                 if(!dotButton.disabled){
                     checkValidExpression();
@@ -187,6 +162,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 break;
         }
     }
+    
+    const isOperator = (value) => (value === '+' || value === '-' || value === '/' || value === '*' || value ==="%");
+
     const typeOfEntry = (value)=>{
         switch(value){
             case 'AC':
@@ -197,15 +175,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 return "BACKSPACE";
             case '%':
             case ']':
-                return "MOD";
             case '+':
-                return "PLUS";
             case '-':
-                return "SUBTRACT";
             case '*':
-                return "MULTIPLY";
             case '/':
-                return "DIVIDE";
+                return "OPERATOR";
             case ',':
             case '.':
                 return "DOT";
