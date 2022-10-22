@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", ()=>{
     const display = document.getElementById("main-display");
-    const history = document.getElementById("history");
+    const history = document.getElementById("history-display");
     const buttons = document.querySelectorAll("button");
     const dotButton = document.getElementById("dot");
 
@@ -64,26 +64,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 result = factorA % factorB;
                 break;
             default:
-                alert("ERROR");
-                break;
+                throw `ERROR: Unknown error while operating ${factorB, operator, factorB}`;
         }
-        if(result !== Math.floor(result)){
+        if(hasDecimalPoints(result)){
             result = parseFloat(result).toFixed(4);
         }
         return result;
     }
-
-    const clear = () => {display.innerText = ""; history.innerText = ""; expression = [];enableDotButton();}
-    const enableDotButton = () => {dotButton.disabled = false;}
-    const disableDotButton = () => {dotButton.disabled = true;}
-    const prepareForNextEntry = () => {history.innerText = getHistory();display.innerText = '';};
-    const checkValidExpression = () =>{
-        if(display.innerText.length=== 0){
-            console.log("Display length is zero.");
-            throw "INVALID EXPRESSION";
-        }
-    };
-    
     const calculatePartialSolution = () =>{
         let partialSolution;
         if(expression.length === 3){
@@ -92,7 +79,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
             console.log(`Partial solution: ${partialSolution}`);
             if(Math.abs(partialSolution) === Infinity || partialSolution !== partialSolution){
                 expression.pop();
-                console.log(`Partial solution was ${partialSolution}`);
                 throw "CANNOT DIVIDE BY ZERO!";
             }
             expression = [];
@@ -110,7 +96,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 if(display.innerText.charAt(display.innerText.length-1)==='.'){
                     enableDotButton();
                 }
-                if(display.innerText === '' && isOperator(expression[expression.length-1])){
+                if(display.innerText.length===0  && isOperator(expression[expression.length-1])){
                     display.innerText = expression[0];
                     expression = [];
                     history.innerText = '';
@@ -162,15 +148,21 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 break;
         }
     }
-    
     const isOperator = (value) => (value === '+' || value === '-' || value === '/' || value === '*' || value ==="%");
-
+    const clear = () => {display.innerText = ""; history.innerText = ""; expression = [];enableDotButton();}
+    const enableDotButton = () => {dotButton.disabled = false;}
+    const disableDotButton = () => {dotButton.disabled = true;}
+    const hasDecimalPoints = (num) => {num !== Math.floor(num)};
+    const prepareForNextEntry = () => {history.innerText = getHistory();display.innerText = '';};
+    const checkValidExpression = () =>{
+        if(display.innerText.length=== 0){
+            throw "INVALID EXPRESSION";
+        }
+    };
     const typeOfEntry = (value)=>{
         switch(value){
-            case 'AC':
             case 'Delete':
                 return "DELETE";
-            case 'C':
             case 'Backspace':
                 return "BACKSPACE";
             case '%':
@@ -184,7 +176,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
             case '.':
                 return "DOT";
             case 'Enter':
-            case '=':
                 return "EQUALS";
             case '0':
             case '1':

@@ -6,7 +6,6 @@ html {
     margin: 0;
     padding: 0;
 }
-
 body{
     margin: auto;
     background-color: lightgray;
@@ -36,7 +35,6 @@ main {
     border-style: solid;
     border-color: rgb(39, 66, 66);
     box-shadow: inset 0px 0px 6px 1px rgb(65, 108, 116);
-    /*rgb(42, 70, 75);*/
 }
 .buttons-div{
     display: flex;
@@ -75,6 +73,47 @@ button:disabled {
     background-color: rgb(110, 184, 187);
     opacity: 0.5;
 }
+.special-button {
+    background-color: rgb(80, 118, 189);
+    border-bottom-color: rgb(34, 51, 82);
+    border-top-color: rgb(34, 51, 82);
+    border-left-color: rgb(57, 84, 131);
+    border-right-color: rgb(57, 84, 131);
+    box-shadow: inset 2px 2px 3px 1px rgb(100, 139, 211), 1px 1px 2px 2px rgb(19, 32, 32);
+    color:rgb(29, 44, 70);
+}
+
+.special-button:active {
+    background-color:rgb(63, 93, 150);
+    box-shadow: inset 0px 0px 0px 0px, 1px 1px 2px 2px rgb(19, 32, 32);
+}
+.operator-button {
+    color: rgb(70, 56, 29);
+    background-color: orange;
+    border-bottom-color: rgb(88, 71, 37);
+    border-top-color: rgb(88, 71, 37);
+    border-left-color: rgb(117, 95, 50);
+    border-right-color: rgb(117, 95, 50);
+    box-shadow: inset 2px 2px 3px 1px rgb(241, 184, 77), 1px 1px 2px 2px rgb(19, 32, 32);
+    font-size: 65px;
+}
+.operator-button:active {
+    background-color:#F78900;
+    box-shadow: inset 0px 0px 0px 0px, 1px 1px 2px 2px rgb(19, 32, 32);
+}
+.number-button {
+    color: rgb(35, 57, 58);
+    background-color: cadetblue;
+    border-bottom-color: rgb(42, 67, 68);
+    border-top-color: rgb(42, 67, 68);
+    border-left-color: rgb(54, 87, 88);
+    border-right-color: rgb(54, 87, 88);
+    box-shadow: inset 2px 2px 3px 1px rgb(129, 193, 196), 1px 1px 2px 2px rgb(19, 32, 32);
+}
+.number-button:active{
+    background-color:rgb(68, 112, 114);
+    box-shadow: inset 0px 0px 0px 0px, 1px 1px 2px 2px rgb(19, 32, 32);
+}
 #zero-button{
     width: 182px;
 }
@@ -109,54 +148,12 @@ button:disabled {
     padding: 10px;
     height: 70px;
 }
-#history {
+#history-display {
     min-height: 20px;
     font-size: 24px;
     overflow: inherit;
     width: 100%;
 }
-.special {
-    background-color: rgb(80, 118, 189);
-    border-bottom-color: rgb(34, 51, 82);
-    border-top-color: rgb(34, 51, 82);
-    border-left-color: rgb(57, 84, 131);
-    border-right-color: rgb(57, 84, 131);
-    box-shadow: inset 2px 2px 3px 1px rgb(100, 139, 211), 1px 1px 2px 2px rgb(19, 32, 32);
-    color:rgb(29, 44, 70);
-}
-
-.special:active {
-    background-color:rgb(63, 93, 150);
-    box-shadow: inset 0px 0px 0px 0px, 1px 1px 2px 2px rgb(19, 32, 32);
-}
-.operator {
-    color: rgb(70, 56, 29);
-    background-color: orange;
-    border-bottom-color: rgb(88, 71, 37);
-    border-top-color: rgb(88, 71, 37);
-    border-left-color: rgb(117, 95, 50);
-    border-right-color: rgb(117, 95, 50);
-    box-shadow: inset 2px 2px 3px 1px rgb(241, 184, 77), 1px 1px 2px 2px rgb(19, 32, 32);
-    font-size: 65px;
-}
-.operator:active {
-    background-color:#F78900;
-    box-shadow: inset 0px 0px 0px 0px, 1px 1px 2px 2px rgb(19, 32, 32);
-}
-.number {
-    color: rgb(35, 57, 58);
-    background-color: cadetblue;
-    border-bottom-color: rgb(42, 67, 68);
-    border-top-color: rgb(42, 67, 68);
-    border-left-color: rgb(54, 87, 88);
-    border-right-color: rgb(54, 87, 88);
-    box-shadow: inset 2px 2px 3px 1px rgb(129, 193, 196), 1px 1px 2px 2px rgb(19, 32, 32);
-}
-.number:active{
-    background-color:rgb(68, 112, 114);
-    box-shadow: inset 0px 0px 0px 0px, 1px 1px 2px 2px rgb(19, 32, 32);
-}
-
 footer{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: lighter;
