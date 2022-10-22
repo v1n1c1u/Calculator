@@ -2,20 +2,17 @@
     font-family: 'Digital-7';
     src: url('../css/fonts/digital-7.ttf')
 }
-* {
+html {
     margin: 0;
     padding: 0;
 }
-header {
-    margin-bottom: 2em;
-    margin-top: 3em;
-}
+
 body{
-    margin: auto auto 2em auto;
+    margin: auto;
     background-color: lightgray;
-    padding: 1em 6em 1em 6em;
+    padding: 0em 6em 0em 6em;
     width: 45em;
-    height: 50em;
+    height: fit-content;
     font-family:'Digital-7', 'Courier';
     display: flex;
     flex-direction: column;
@@ -27,7 +24,7 @@ h1{
     font-weight: bold;
     font-size: 70px;
     color: darkslategray;
-    height: fit-content;
+    height: 55px;
 }
 
 main {
@@ -38,6 +35,8 @@ main {
     border-radius: 10px 10px 10px 10px;
     border-style: solid;
     border-color: rgb(39, 66, 66);
+    box-shadow: inset 0px 0px 6px 1px rgb(65, 108, 116);
+    /*rgb(42, 70, 75);*/
 }
 .buttons-div{
     display: flex;
@@ -64,7 +63,6 @@ button{
     font-size: 32px;
     border-radius: 5px 5px 5px 5px;
     margin: 0px 2px 1px 2px;
-    box-shadow: 1px 1px 2px 2px rgb(19, 32, 32);
     font-weight: bold;
 }
 button:hover {
@@ -90,7 +88,7 @@ button:disabled {
     margin-bottom: 20px;
     background-color: rgb(129, 150, 94);
     color: rgb(46, 58, 25);
-    box-shadow: 1px 4px 8px rgb(37, 63, 63);
+    box-shadow:1px 4px 8px rgb(37, 63, 63);
 }
 #internal-screen-div{
     display: flex;
@@ -113,6 +111,7 @@ button:disabled {
 #history {
     min-height: 20px;
     font-size: 24px;
+    overflow: hidden;
 }
 .special {
     background-color: rgb(80, 118, 189);
@@ -120,11 +119,13 @@ button:disabled {
     border-top-color: rgb(34, 51, 82);
     border-left-color: rgb(57, 84, 131);
     border-right-color: rgb(57, 84, 131);
+    box-shadow: inset 2px 2px 3px 1px rgb(100, 139, 211), 1px 1px 2px 2px rgb(19, 32, 32);
     color:rgb(29, 44, 70);
 }
 
 .special:active {
     background-color:rgb(63, 93, 150);
+    box-shadow: inset 0px 0px 0px 0px, 1px 1px 2px 2px rgb(19, 32, 32);
 }
 .operator {
     color: rgb(70, 56, 29);
@@ -133,10 +134,12 @@ button:disabled {
     border-top-color: rgb(88, 71, 37);
     border-left-color: rgb(117, 95, 50);
     border-right-color: rgb(117, 95, 50);
+    box-shadow: inset 2px 2px 3px 1px rgb(241, 184, 77), 1px 1px 2px 2px rgb(19, 32, 32);
     font-size: 65px;
 }
 .operator:active {
     background-color:#F78900;
+    box-shadow: inset 0px 0px 0px 0px, 1px 1px 2px 2px rgb(19, 32, 32);
 }
 .number {
     color: rgb(35, 57, 58);
@@ -145,9 +148,11 @@ button:disabled {
     border-top-color: rgb(42, 67, 68);
     border-left-color: rgb(54, 87, 88);
     border-right-color: rgb(54, 87, 88);
+    box-shadow: inset 2px 2px 3px 1px rgb(129, 193, 196), 1px 1px 2px 2px rgb(19, 32, 32);
 }
 .number:active{
     background-color:rgb(68, 112, 114);
+    box-shadow: inset 0px 0px 0px 0px, 1px 1px 2px 2px rgb(19, 32, 32);
 }
 
 footer{
@@ -165,9 +170,13 @@ footer a {
 }
 footer ul {
     list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top:6px;
     display: flex;
-    justify-content: space-around;
-    margin:10px;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-items: center;
     font-size: 32px;
 }
 i:hover {
@@ -177,7 +186,7 @@ i:hover {
 @media screen and (max-width: 914px) {
     body {
         margin: auto;
-        padding: 1em 1vw 1vw 1vw;
+        padding: 0 1vw 1vw 1vw;
         width: fit-content;
         min-width: 420px;
         height: fit-content;
@@ -189,13 +198,19 @@ i:hover {
     header {
         padding-top:0%;
         min-height: fit-content;
-        margin-top: 1vw;
+    }
+    h1 {
+        font-size: 65px;
+    }
+    footer {
+        min-height: fit-content;
+        margin-top: 10px;
     }
     footer i {
-        font-size: 32px;
+        font-size: 28px;
     }
     footer ul {
         margin: 0%;
-        margin-top:10px;
+        margin-top:2px;
     }
  }
