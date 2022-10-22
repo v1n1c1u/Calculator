@@ -101,6 +101,7 @@ button:disabled {
     padding: 10px;
     min-height: 80x;
     text-align: end;
+    white-space: nowrap;
 }
 #main-display {
     font-weight: lighter;
@@ -111,7 +112,8 @@ button:disabled {
 #history {
     min-height: 20px;
     font-size: 24px;
-    overflow: hidden;
+    overflow: inherit;
+    width: 100%;
 }
 .special {
     background-color: rgb(80, 118, 189);
