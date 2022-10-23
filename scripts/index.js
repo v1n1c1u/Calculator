@@ -93,20 +93,20 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 clear();
                 break;
             case "BACKSPACE":
-                if(display.innerText.charAt(display.innerText.length-1)==='.'){
+                if(getDisplayText().charAt(getDisplayText().length-1)==='.'){
                     enableDotButton();
                 }
-                if(display.innerText.length===0  && isOperator(expression[expression.length-1])){
-                    display.innerText = expression[0];
-                    expression = [];
-                    history.innerText = '';
+                if(getDisplayText().length===0  && isOperator(expression[expression.length-1])){
+                    setDisplayText(expression.shift());
+                    expression.pop();
+                    setHistoryText('');
                 }else{
-                    display.innerText = display.innerText.slice(0,display.innerText.length-1);
+                    setDisplayText(getDisplayText().slice(0,getDisplayText().length-1));
                 }
                 break;
             case "OPERATOR":
                 checkValidExpression();
-                expression.push(parseFloat(display.innerText));
+                expression.push(parseFloat(getDisplayText()));
                 calculatePartialSolution();
                 expression.push(value);
                 prepareForNextEntry();
@@ -115,22 +115,22 @@ document.addEventListener("DOMContentLoaded", ()=>{
             case "DOT":
                 if(!dotButton.disabled){
                     checkValidExpression();
-                    display.innerText += '.';
+                    addToDisplayText('.');
                     disableDotButton();
                 }
                 break;
             case "EQUALS":
-                if(expression.length===0 && display.innerText.length > 0){
-                    history.innerText = display.innerText + " = ";
+                if(expression.length===0 && getDisplayText().length > 0){
+                    setHistoryText(getDisplayText() + " = ");
                     start = true;
                     break;
                 }
                 checkValidExpression();
-                expression.push(parseFloat(display.innerText));
-                history.innerText = getHistory() + " = ";
+                expression.push(parseFloat(getDisplayText()));
+                setHistoryText(getHistory() + " = ");
                 try{
-                    display.innerText = calculatePartialSolution();
-                    expression = [display.innerText];
+                    setDisplayText(calculatePartialSolution());
+                    expression = [getDisplayText()];
                 }catch(e){
                     alert(e);
                     clear();
@@ -138,10 +138,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 start = true;
                 break;
             case "NUMBER":
-                if(display.innerText === '0'){
-                    display.innerText = '';
+                if(getDisplayText() === '0'){
+                    setDisplayText('');
                 }
-                display.innerText += value;
+                addToDisplayText(value);
                 break;
             default:
                 break;
@@ -153,6 +153,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const disableDotButton = () => {dotButton.disabled = true;}
     const hasDecimalPoints = (num) => {return num !== Math.floor(num)};
     const isNaN = (value) => {return value !== value;}
+    const setDisplayText = (text) => {display.innerText = text;}
+    const addToDisplayText = (text) => {display.innerText += text;}
+    const setHistoryText = (text) => {history.innerText = text;}
+    const addToHistoryText = (text) => {history.innerText += text;}
+    const getDisplayText = () => {return display.innerText;}
+    const getHistoryText = () => {return display.innerText;}
     const prepareForNextEntry = () => {history.innerText = getHistory();display.innerText = '';};
     const checkValidExpression = () =>{
         if(display.innerText.length=== 0){
