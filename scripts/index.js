@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 alert(e);
                 console.log(e);
             }
-            
         })
     });
 
@@ -71,22 +70,23 @@ document.addEventListener("DOMContentLoaded", ()=>{
         }
         return result;
     }
+
     const calculatePartialSolution = () =>{
         let partialSolution;
         if(expression.length === 3){
             partialSolution = parseFloat(operate(expression[0],expression[1],expression[2]));
             console.log(`Expression: [${expression}]`);
             console.log(`Partial solution: ${partialSolution}`);
-            if(Math.abs(partialSolution) === Infinity || partialSolution !== partialSolution){
+            if(Math.abs(partialSolution) === Infinity || isNaN(partialSolution)){
                 expression.pop();
                 throw "CANNOT DIVIDE BY ZERO!";
             }
             expression = [];
             expression.push(partialSolution);
-            
         }
         return partialSolution;
     }
+
     function calculator(value){
         switch(typeOfEntry(value)){
             case "DELETE":
@@ -112,7 +112,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
                 prepareForNextEntry();
                 enableDotButton();
                 break;
-
             case "DOT":
                 if(!dotButton.disabled){
                     checkValidExpression();
@@ -152,7 +151,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const clear = () => {display.innerText = ""; history.innerText = ""; expression = [];enableDotButton();}
     const enableDotButton = () => {dotButton.disabled = false;}
     const disableDotButton = () => {dotButton.disabled = true;}
-    const hasDecimalPoints = (num) => {num !== Math.floor(num)};
+    const hasDecimalPoints = (num) => {return num !== Math.floor(num)};
+    const isNaN = (value) => {return value !== value;}
     const prepareForNextEntry = () => {history.innerText = getHistory();display.innerText = '';};
     const checkValidExpression = () =>{
         if(display.innerText.length=== 0){
