@@ -4,3 +4,6 @@ This is my solution for the 4th assignment of the web development training progr
 <br>
 <br>
 Link for the page: https://v1n1c1u.github.io/Calculator/html/index.html
+<br>
+<br>
+P.S.: It is responsive!
